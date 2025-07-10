@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Helper script to test the scalr-cli formula locally
+# Helper script to test the scalr formula locally
 # Usage: ./test-formula.sh
 
 set -e
 
-echo "Testing scalr-cli formula locally..."
+echo "Testing scalr formula locally..."
 
 # Check if Homebrew is installed
 if ! command -v brew &>/dev/null

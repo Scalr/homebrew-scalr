@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Helper script to update the scalr-cli formula
+# Helper script to update the scalr formula
 # Usage: ./update-formula.sh <version>
 
 set -e
@@ -38,7 +38,12 @@ then
   exit 1
 fi
 
-SHA256=$(shasum -a 256 "${TEMP_FILE}" | cut -d' ' -f1)
+# Calculate SHA256 checksum
+if ! SHA256=$(shasum -a 256 "${TEMP_FILE}" | cut -d' ' -f1); then
+  echo "Error: Failed to calculate SHA256"
+  rm -f "${TEMP_FILE}"
+  exit 1
+fi
 rm -f "${TEMP_FILE}"
 
 echo "SHA256: ${SHA256}"
