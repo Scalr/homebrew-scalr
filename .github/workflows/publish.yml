@@ -51,14 +51,6 @@ jobs:
         git push origin main
         git push origin "v${{ github.event.inputs.version }}"
     
-    - name: Build bottles
-      run: |
-        brew test-bot --only-cleanup-before
-        brew test-bot --only-setup
-        brew test-bot --only-formulae --keep-old
-      env:
-        HOMEBREW_GITHUB_API_TOKEN: ${{ github.token }}
-    
     - name: Create Release
       uses: softprops/action-gh-release@v2
       with:
@@ -72,6 +64,7 @@ jobs:
           brew tap Scalr/scalr
           brew install scalr
           ```
+          
+          **Note**: Bottles (pre-compiled binaries) can be built separately if needed.
         draft: false
         prerelease: false
-        files: '*.bottle.*'
