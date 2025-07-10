@@ -26,20 +26,17 @@ jobs:
         HOMEBREW_GITHUB_API_TOKEN: ${{ github.token }}
     
     - name: Upload bottles
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: bottles
         path: '*.bottle.*'
     
     - name: Create Release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: softprops/action-gh-release@v2
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+        name: Release ${{ github.ref_name }}
         body: |
-          Automated release for version ${{ github.ref }}
+          Automated release for version ${{ github.ref_name }}
           
           Install with:
           ```bash
@@ -48,3 +45,4 @@ jobs:
           ```
         draft: false
         prerelease: false
+        files: '*.bottle.*'
