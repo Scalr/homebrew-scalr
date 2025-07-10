@@ -16,7 +16,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.HOMEBREW_PAT }}
         persist-credentials: true
     
     - name: Set up Homebrew
@@ -44,7 +44,7 @@ jobs:
     
     - name: Configure git for pushing
       run: |
-        git config --local url.https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/.insteadOf https://github.com/
+        git config --local url.https://x-access-token:${{ secrets.HOMEBREW_PAT }}@github.com/.insteadOf https://github.com/
     
     - name: Push changes and tags
       run: |

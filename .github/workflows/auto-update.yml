@@ -43,7 +43,7 @@ jobs:
       if: steps.compare.outputs.update_needed == 'true'
       uses: peter-evans/create-pull-request@v6
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.HOMEBREW_PAT }}
         commit-message: "Update scalr formula to version ${{ steps.latest-release.outputs.version }}"
         title: "Update scalr to version ${{ steps.latest-release.outputs.version }}"
         body: |
