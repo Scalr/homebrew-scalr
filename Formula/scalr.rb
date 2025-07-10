@@ -13,12 +13,7 @@ class Scalr < Formula
   depends_on "go" => :build
 
   def install
-    # Get build information (with fallbacks for build environment)
-    git_commit = begin
-      Utils.safe_popen_read("git", "rev-parse", "HEAD").chomp
-    rescue
-      "unknown"
-    end
+    # Get build information
     build_date = Time.now.utc.strftime("%Y-%m-%dT%H:%M:%SZ")
 
     # Build with dynamic version information
