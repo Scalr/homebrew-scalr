@@ -34,11 +34,30 @@ scalr --help
 
 ## Development
 
-To update the formula:
+### Updating the Formula
 
-1. Update the `url` and `sha256` in `Formula/scalr.rb`
-2. Test the formula locally: `brew install --build-from-source ./Formula/scalr.rb`
-3. Run the formula test: `brew test scalr`
+#### Automatic Updates (Recommended)
+The repository automatically checks for new scalr-cli releases daily and creates pull requests with updates.
+
+#### Manual Updates
+You can update the formula in several ways:
+
+1. **Using the helper script locally:**
+   ```bash
+   ./update-formula.sh 0.17.4
+   brew install --build-from-source ./Formula/scalr.rb
+   brew test scalr
+   ```
+
+2. **Using GitHub Actions:**
+   - Go to Actions → "Update Formula and Publish Release"
+   - Click "Run workflow" and enter the new version
+   - This will automatically update, test, and create a release
+
+3. **Manual editing:**
+   - Update the `url` and `sha256` in `Formula/scalr.rb`
+   - Test the formula locally: `brew install --build-from-source ./Formula/scalr.rb`
+   - Run the formula test: `brew test scalr`
 
 ## Support
 

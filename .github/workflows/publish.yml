@@ -1,21 +1,50 @@
-name: Publish Release
+name: Update Formula and Publish Release
 
 on:
-  push:
-    tags:
-      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Scalr CLI version to update to (e.g., 0.17.4)'
+        required: true
+        type: string
 
 jobs:
-  publish:
+  update-and-publish:
     runs-on: macos-latest
     
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Set up Homebrew
       id: set-up-homebrew
       uses: Homebrew/actions/setup-homebrew@master
+    
+    - name: Update formula to new version
+      run: |
+        chmod +x ./update-formula.sh
+        ./update-formula.sh ${{ github.event.inputs.version }}
+    
+    - name: Test updated formula
+      run: |
+        brew install --build-from-source ./Formula/scalr.rb
+        brew test scalr
+        brew uninstall scalr
+    
+    - name: Commit updated formula
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add Formula/scalr.rb
+        git commit -m "Update scalr formula to version ${{ github.event.inputs.version }}"
+        git tag -a "v${{ github.event.inputs.version }}" -m "Release version ${{ github.event.inputs.version }}"
+    
+    - name: Push changes and tags
+      run: |
+        git push origin main
+        git push origin "v${{ github.event.inputs.version }}"
     
     - name: Build bottles
       run: |
@@ -25,18 +54,13 @@ jobs:
       env:
         HOMEBREW_GITHUB_API_TOKEN: ${{ github.token }}
     
-    - name: Upload bottles
-      uses: actions/upload-artifact@v4
-      with:
-        name: bottles
-        path: '*.bottle.*'
-    
     - name: Create Release
       uses: softprops/action-gh-release@v2
       with:
-        name: Release ${{ github.ref_name }}
+        tag_name: "v${{ github.event.inputs.version }}"
+        name: "Release v${{ github.event.inputs.version }}"
         body: |
-          Automated release for version ${{ github.ref_name }}
+          Updated scalr formula to version ${{ github.event.inputs.version }}
           
           Install with:
           ```bash
