@@ -8,9 +8,10 @@ set -e
 echo "Testing scalr-cli formula locally..."
 
 # Check if Homebrew is installed
-if ! command -v brew &> /dev/null; then
-    echo "Error: Homebrew is not installed. Please install Homebrew first."
-    exit 1
+if ! command -v brew &>/dev/null
+then
+  echo "Error: Homebrew is not installed. Please install Homebrew first."
+  exit 1
 fi
 
 echo "1. Checking formula syntax..."
@@ -27,4 +28,4 @@ echo "4. Running formula test..."
 brew test scalr
 
 echo "✓ All tests passed!"
-echo "To uninstall: brew uninstall scalr" 
+echo "To uninstall: brew uninstall scalr"
