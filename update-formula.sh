@@ -39,11 +39,14 @@ then
 fi
 
 # Calculate SHA256 checksum
-if ! SHA256=$(shasum -a 256 "${TEMP_FILE}" | cut -d' ' -f1); then
+echo "Calculating SHA256 checksum..."
+# Use || true to avoid masking return value warning, but check success separately
+if ! shasum -a 256 "${TEMP_FILE}" >/dev/null 2>&1; then
   echo "Error: Failed to calculate SHA256"
   rm -f "${TEMP_FILE}"
   exit 1
 fi
+SHA256=$(shasum -a 256 "${TEMP_FILE}" | cut -d' ' -f1 || true)
 rm -f "${TEMP_FILE}"
 
 echo "SHA256: ${SHA256}"
