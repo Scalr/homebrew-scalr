@@ -19,7 +19,7 @@ ruby -c ./Formula/scalr.rb
 echo "✓ Syntax check passed"
 
 echo "2. Testing formula installation..."
-brew install --build-from-source ./Formula/scalr.rb
+brew install --build-from-source scalr/scalr/scalr
 
 echo "3. Testing installed binary..."
 scalr -version

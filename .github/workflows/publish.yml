@@ -17,6 +17,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
+        persist-credentials: true
     
     - name: Set up Homebrew
       id: set-up-homebrew
@@ -29,7 +30,7 @@ jobs:
     
     - name: Test updated formula
       run: |
-        brew install --build-from-source ./Formula/scalr.rb
+        brew install --build-from-source scalr/scalr/scalr
         brew test scalr
         brew uninstall scalr
     
@@ -40,6 +41,10 @@ jobs:
         git add Formula/scalr.rb
         git commit -m "Update scalr formula to version ${{ github.event.inputs.version }}"
         git tag -a "v${{ github.event.inputs.version }}" -m "Release version ${{ github.event.inputs.version }}"
+    
+    - name: Configure git for pushing
+      run: |
+        git config --local url.https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/.insteadOf https://github.com/
     
     - name: Push changes and tags
       run: |

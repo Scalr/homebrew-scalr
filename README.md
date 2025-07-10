@@ -45,7 +45,7 @@ You can update the formula in several ways:
 1. **Using the helper script locally:**
    ```bash
    ./update-formula.sh 0.17.4
-   brew install --build-from-source ./Formula/scalr.rb
+   brew install --build-from-source scalr/scalr/scalr
    brew test scalr
    ```
 
@@ -56,7 +56,7 @@ You can update the formula in several ways:
 
 3. **Manual editing:**
    - Update the `url` and `sha256` in `Formula/scalr.rb`
-   - Test the formula locally: `brew install --build-from-source ./Formula/scalr.rb`
+   - Test the formula locally: `brew install --build-from-source scalr/scalr/scalr`
    - Run the formula test: `brew test scalr`
 
 ## Support

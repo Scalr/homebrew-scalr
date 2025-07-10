@@ -60,5 +60,5 @@ sed -i.bak "s|sha256 \"[a-f0-9]*\"|sha256 \"${SHA256}\"|" "${FORMULA_FILE}"
 rm -f "${FORMULA_FILE}.bak"
 
 echo "Formula updated successfully!"
-echo "Please test the formula with: brew install --build-from-source ./Formula/scalr.rb"
+echo "Please test the formula with: brew install --build-from-source scalr/scalr/scalr"
 echo "Then run: brew test scalr"
