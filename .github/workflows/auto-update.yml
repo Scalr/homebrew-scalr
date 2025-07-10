@@ -18,24 +18,24 @@ jobs:
       id: latest-release
       run: |
         LATEST_VERSION=$(curl -s https://api.github.com/repos/Scalr/scalr-cli/releases/latest | jq -r '.tag_name' | sed 's/^v//')
-        echo "version=${LATEST_VERSION}" >> $GITHUB_OUTPUT
+        echo "version=${LATEST_VERSION}" >> "$GITHUB_OUTPUT"
         echo "Latest scalr-cli version: ${LATEST_VERSION}"
     
     - name: Get current formula version
       id: current-version
       run: |
         CURRENT_VERSION=$(grep -o 'archive/refs/tags/v[0-9.]*' Formula/scalr.rb | sed 's/archive\/refs\/tags\/v//')
-        echo "version=${CURRENT_VERSION}" >> $GITHUB_OUTPUT
+        echo "version=${CURRENT_VERSION}" >> "$GITHUB_OUTPUT"
         echo "Current formula version: ${CURRENT_VERSION}"
     
     - name: Compare versions
       id: compare
       run: |
         if [ "${{ steps.latest-release.outputs.version }}" != "${{ steps.current-version.outputs.version }}" ]; then
-          echo "update_needed=true" >> $GITHUB_OUTPUT
+          echo "update_needed=true" >> "$GITHUB_OUTPUT"
           echo "New version available: ${{ steps.latest-release.outputs.version }}"
         else
-          echo "update_needed=false" >> $GITHUB_OUTPUT
+          echo "update_needed=false" >> "$GITHUB_OUTPUT"
           echo "Formula is up to date"
         fi
     
