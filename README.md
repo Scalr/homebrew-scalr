@@ -6,7 +6,7 @@ This is a Homebrew tap for [Scalr CLI](https://github.com/Scalr/scalr-cli), a co
 
 ```bash
 # Add the tap
-brew tap emocharnik/scalr
+brew tap Scalr/scalr
 
 # Install scalr
 brew install scalr

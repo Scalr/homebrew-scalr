@@ -64,7 +64,7 @@ jobs:
           
           Install with:
           ```bash
-          brew tap emocharnik/scalr
+          brew tap Scalr/scalr
           brew install scalr
           ```
         draft: false
