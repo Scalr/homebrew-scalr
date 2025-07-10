@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 # CLI for Scalr remote state & operations backend
-class ScalrCli < Formula
+class Scalr < Formula
   desc "CLI for Scalr remote state & operations backend"
   homepage "https://scalr.com"
   url "https://github.com/Scalr/scalr-cli/archive/refs/tags/v0.17.3.tar.gz"

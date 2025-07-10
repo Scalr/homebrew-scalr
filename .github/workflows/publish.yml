@@ -43,8 +43,8 @@ jobs:
           
           Install with:
           ```bash
-          brew tap mocharnyk/scalr
-          brew install scalr-cli
+          brew tap emocharnik/scalr
+          brew install scalr
           ```
         draft: false
-        prerelease: false 
+        prerelease: false

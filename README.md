@@ -8,8 +8,8 @@ This is a Homebrew tap for [Scalr CLI](https://github.com/Scalr/scalr-cli), a co
 # Add the tap
 brew tap emocharnik/scalr
 
-# Install scalr-cli
-brew install scalr-cli
+# Install scalr
+brew install scalr
 ```
 
 ## Usage
@@ -26,7 +26,7 @@ scalr --help
 
 ## Formula Information
 
-- **Package**: scalr-cli
+- **Package**: scalr
 - **Description**: CLI for Scalr remote state & operations backend
 - **Homepage**: https://scalr.com
 - **Source**: https://github.com/Scalr/scalr-cli
@@ -36,9 +36,9 @@ scalr --help
 
 To update the formula:
 
-1. Update the `url` and `sha256` in `Formula/scalr-cli.rb`
-2. Test the formula locally: `brew install --build-from-source ./Formula/scalr-cli.rb`
-3. Run the formula test: `brew test scalr-cli`
+1. Update the `url` and `sha256` in `Formula/scalr.rb`
+2. Test the formula locally: `brew install --build-from-source ./Formula/scalr.rb`
+3. Run the formula test: `brew test scalr`
 
 ## Support
 

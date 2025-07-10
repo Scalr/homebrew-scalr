@@ -12,7 +12,7 @@ if [ $# -ne 1 ]; then
 fi
 
 VERSION=$1
-FORMULA_FILE="Formula/scalr-cli.rb"
+FORMULA_FILE="Formula/scalr.rb"
 
 # Validate version format
 if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
@@ -48,5 +48,5 @@ sed -i.bak "s|sha256 \"[a-f0-9]*\"|sha256 \"$SHA256\"|" "$FORMULA_FILE"
 rm -f "${FORMULA_FILE}.bak"
 
 echo "Formula updated successfully!"
-echo "Please test the formula with: brew install --build-from-source ./Formula/scalr-cli.rb"
-echo "Then run: brew test scalr-cli" 
+echo "Please test the formula with: brew install --build-from-source ./Formula/scalr.rb"
+echo "Then run: brew test scalr" 

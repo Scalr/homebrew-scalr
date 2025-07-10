@@ -14,17 +14,17 @@ if ! command -v brew &> /dev/null; then
 fi
 
 echo "1. Checking formula syntax..."
-ruby -c ./Formula/scalr-cli.rb
+ruby -c ./Formula/scalr.rb
 echo "✓ Syntax check passed"
 
 echo "2. Testing formula installation..."
-brew install --build-from-source ./Formula/scalr-cli.rb
+brew install --build-from-source ./Formula/scalr.rb
 
 echo "3. Testing installed binary..."
 scalr -version
 
 echo "4. Running formula test..."
-brew test scalr-cli
+brew test scalr
 
 echo "✓ All tests passed!"
-echo "To uninstall: brew uninstall scalr-cli" 
+echo "To uninstall: brew uninstall scalr" 
