@@ -5,8 +5,8 @@
 class Scalr < Formula
   desc "CLI for Scalr remote state & operations backend"
   homepage "https://scalr.com"
-  url "https://github.com/Scalr/scalr-cli/archive/refs/tags/v0.17.3.tar.gz"
-  sha256 "c931537592ebda28bb8ea916e924885ecbaa0438da51beaddee378e7e91ce5f6"
+  url "https://github.com/Scalr/scalr-cli/archive/refs/tags/v0.17.4.tar.gz"
+  sha256 "4409a68b8ed7ff1e855a1e35a2bfda5cf19d3722788e5fc493311a3d365eb950"
   license "Apache-2.0"
   head "https://github.com/Scalr/scalr-cli.git", branch: "main"
 
