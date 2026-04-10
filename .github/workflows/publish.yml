@@ -8,6 +8,9 @@ on:
         required: true
         type: string
 
+permissions:
+  contents: write
+
 jobs:
   update-and-publish:
     runs-on: macos-latest
@@ -39,8 +42,16 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add Formula/scalr.rb
-        git commit -m "Update scalr formula to version ${{ github.event.inputs.version }}"
-        git tag -a "v${{ github.event.inputs.version }}" -m "Release version ${{ github.event.inputs.version }}"
+        if git diff --cached --quiet; then
+          echo "No changes to commit (formula already up to date)"
+        else
+          git commit -m "Update scalr formula to version ${{ github.event.inputs.version }}"
+        fi
+        if git rev-parse "v${{ github.event.inputs.version }}" >/dev/null 2>&1; then
+          echo "Tag v${{ github.event.inputs.version }} already exists, skipping"
+        else
+          git tag -a "v${{ github.event.inputs.version }}" -m "Release version ${{ github.event.inputs.version }}"
+        fi
     
     - name: Configure git for pushing
       run: |
@@ -48,12 +59,13 @@ jobs:
     
     - name: Push changes and tags
       run: |
-        git push origin main
-        git push origin "v${{ github.event.inputs.version }}"
+        git push origin main || echo "Nothing new to push to main"
+        git push origin "v${{ github.event.inputs.version }}" || echo "Tag already pushed"
     
     - name: Create Release
       uses: softprops/action-gh-release@v2
       with:
+        token: ${{ secrets.HOMEBREW_PAT }}
         tag_name: "v${{ github.event.inputs.version }}"
         name: "Release v${{ github.event.inputs.version }}"
         body: |

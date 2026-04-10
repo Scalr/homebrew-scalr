@@ -39,6 +39,12 @@ jobs:
           echo "Formula is up to date"
         fi
     
+    - name: Update formula if new version found
+      if: steps.compare.outputs.update_needed == 'true'
+      run: |
+        chmod +x ./update-formula.sh
+        ./update-formula.sh ${{ steps.latest-release.outputs.version }}
+
     - name: Create Pull Request for update
       if: steps.compare.outputs.update_needed == 'true'
       uses: peter-evans/create-pull-request@v6
@@ -47,26 +53,20 @@ jobs:
         commit-message: "Update scalr formula to version ${{ steps.latest-release.outputs.version }}"
         title: "Update scalr to version ${{ steps.latest-release.outputs.version }}"
         body: |
-          ## 🚀 New scalr-cli version available
-          
+          ## New scalr-cli version available
+
           This PR updates the scalr formula from version `${{ steps.current-version.outputs.version }}` to `${{ steps.latest-release.outputs.version }}`.
-          
+
           ### Changes
           - Updates URL to point to new release tarball
           - Updates SHA256 checksum for the new version
-          
+
           ### Manual Steps Required
           1. Review the changes
           2. Merge this PR if everything looks good
-          3. Optionally trigger the "Update Formula and Publish Release" workflow to create bottles
-          
+          3. Optionally trigger the "Update Formula and Publish Release" workflow to create a release
+
           ---
           *This PR was created automatically by the auto-update workflow.*
         branch: "update-scalr-${{ steps.latest-release.outputs.version }}"
         delete-branch: true
-    
-    - name: Update formula if new version found
-      if: steps.compare.outputs.update_needed == 'true'
-      run: |
-        chmod +x ./update-formula.sh
-        ./update-formula.sh ${{ steps.latest-release.outputs.version }} 
